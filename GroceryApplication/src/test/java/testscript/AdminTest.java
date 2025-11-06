@@ -9,7 +9,7 @@ import base.TestNGBase;
 
 import utilities.ExcelUtility;
 
-public class AdminTest extends TestNGBase {
+public class AdminTest extends  TestNGBase {
 	
 	@Test (priority=1, description="to create an admin")
 	

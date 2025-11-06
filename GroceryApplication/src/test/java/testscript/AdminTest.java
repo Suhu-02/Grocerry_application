@@ -13,7 +13,7 @@ public class AdminTest extends  TestNGBase {
 	
 	@Test (priority=1, description="to create an admin")
 	
-	public void createAdmin() throws  IOException {
+	public void createAdmin() throws   IOException {
 		
 		String usernamevalue= ExcelUtility.getStringData(1,0,"Login sheet");
 		String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");

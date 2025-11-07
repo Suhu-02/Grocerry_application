@@ -3,6 +3,7 @@ package testscript;
 import java.io.IOException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.TestNGBase;
 import utilities.ExcelUtility;
@@ -22,6 +23,12 @@ public class Logintest extends TestNGBase{
 		password.sendKeys(passwordvalue);
 		WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
 		login.click();
+		//assertion
+		String actual = driver.getCurrentUrl();
+		String expected= "https://groceryapp.uniqassosiates.com/admin";
+		Assert.assertEquals(actual, expected); //softassert. in case softassert is used
+		//if assert fails, an error "assertion" failed will be returned
+		
 		
 	}
 		

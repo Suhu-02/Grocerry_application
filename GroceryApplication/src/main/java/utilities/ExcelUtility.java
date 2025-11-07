@@ -21,7 +21,7 @@ public class ExcelUtility {
 
 			{
 			
-			f=new FileInputStream("C:\\Users\\gopik\\git\\Automationcourse\\GroceryApplication\\src\\test\\resources\\Test Data.xlsx");
+			f=new FileInputStream("C:\\Users\\gopik\\git\\Grocerry_application\\GroceryApplication\\src\\test\\resources\\Test Data.xlsx");
 
 			w=new XSSFWorkbook(f);
 
@@ -37,7 +37,7 @@ public class ExcelUtility {
 
 			public static String getIntegerData(int a,int b,String sheet) throws IOException {
 
-			f=new FileInputStream("C:\\Users\\gopik\\git\\Automationcourse\\GroceryApplication\\src\\test\\resources\\Test Data.xlsx");
+			f=new FileInputStream("C:\\Users\\gopik\\git\\Grocerry_application\\GroceryApplication\\src\\test\\resources\\Test Data.xlsx");
 			
 			w=new XSSFWorkbook(f);
 

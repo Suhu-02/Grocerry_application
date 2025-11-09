@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import base.TestNGBase;
@@ -33,6 +34,10 @@ public class NewsTest extends TestNGBase {
 				WebElement save= driver.findElement(By.xpath("//button[@type='submit']"));
 				save.click();	
 				
+				// Assertion: Verify the news "today news" is displayed on the page.
+				WebElement successAlert = driver.findElement(By.xpath("//div[@class='alert alert-success alert-dismissible']"));
+				Assert.assertTrue(successAlert.isDisplayed());
+				
 	}	
 	
 	@Test (priority=2, description= "search news")
@@ -54,6 +59,9 @@ public class NewsTest extends TestNGBase {
 		WebElement search= driver.findElement(By.xpath("//button[@type='submit']"));
 		search.click();
 		
+		//assertion		
+		WebElement searchedNews = driver.findElement(By.xpath("//td[contains(text(),'today news')]"));
+		Assert.assertTrue(searchedNews.isDisplayed());
 				
 	}
 	
@@ -72,6 +80,9 @@ public class NewsTest extends TestNGBase {
 		managenews.click();		 
 	    WebElement homebtn= driver.findElement(By.xpath("//a[text()='Home']"));
 		homebtn.click();
+		
+		WebElement adminElement = driver.findElement(By.xpath("//a[@class='d-block']")); 
+		Assert.assertTrue(adminElement.isDisplayed()); // Verify that "Admin" is visible on the page
 	}
 	
 	@Test(priority=4, description="back to reset")
@@ -89,6 +100,14 @@ public class NewsTest extends TestNGBase {
 		managenews.click();
 		WebElement resetbtn= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-warning']"));
 		resetbtn.click();
+		
+		// Locate the search input box
+		WebElement searchInput = driver.findElement(By.xpath("//input[@class='form-control']"));
+
+		// Assertion: Verify that the search box is empty after clicking Reset
+		Assert.assertEquals(searchInput.getAttribute("value"), "", "Search box is not cleared after reset");
+		
+
 		
 		
 		

@@ -3,6 +3,7 @@ package testscript;
 import java.io.IOException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import base.TestNGBase;
@@ -32,6 +33,10 @@ public class HomeTest extends TestNGBase {
 	     WebElement logoutButton = driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/logout']"));
 	     //another xpath- //i[@class='ace-icon fa fa-power-off']
 	     logoutButton.click();
+	     
+	  // Assertion: verify that user is back on login page after logout
+	     WebElement usernameField = driver.findElement(By.xpath("//input[@name='username']"));
+	     Assert.assertTrue(usernameField.isDisplayed());
 	     
 	     
 	     

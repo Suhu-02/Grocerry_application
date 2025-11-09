@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.TestNGBase;
 
@@ -41,6 +42,10 @@ public class AdminTest extends  TestNGBase {
 		select.selectByVisibleText("Staff");
 		WebElement savebtn= driver.findElement(By.xpath("//button[@type= 'submit' and @name='Create']"));
 		savebtn.click();
+		
+		// Assertion: Verify that admin is created successfully
+		WebElement successAlert = driver.findElement(By.xpath("//div[@class='alert alert-success alert-dismissible']"));
+		Assert.assertTrue(successAlert.isDisplayed());
 		
 		
 		

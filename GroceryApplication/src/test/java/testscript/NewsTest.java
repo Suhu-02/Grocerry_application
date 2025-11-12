@@ -8,6 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import base.TestNGBase;
+import constants.Constant;
+import pages.LoginPage;
+import pages.NewsPage;
 import utilities.ExcelUtility;
 
 public class NewsTest extends TestNGBase {
@@ -19,49 +22,75 @@ public class NewsTest extends TestNGBase {
 		//reading data from excel file		
 				String usernamevalue= ExcelUtility.getStringData(1,0,"Login sheet");
 				String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
-				WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
-				username.sendKeys(usernamevalue);
-				WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
-				password.sendKeys(passwordvalue);
-				WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
-				login.click();
-				WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
-				managenews.click();
-				WebElement newbutton= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-danger']"));
-				newbutton.click();
-				WebElement newsarea= driver.findElement(By.xpath("//textarea[@id='news']"));
-				newsarea.sendKeys("today news");
-				WebElement save= driver.findElement(By.xpath("//button[@type='submit']"));
-				save.click();	
+				
+				LoginPage loginpage = new LoginPage(driver);
+				loginpage.enterusername(usernamevalue);
+				loginpage.enterpassword(passwordvalue);
+				loginpage.signin();
+				NewsPage newspage= new NewsPage(driver);
+				newspage.manage();
+				newspage.newbuttonmethod();
+				newspage.newsareamethod();
+				newspage.savemethod();
+								
+				
+				//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
+				//username.sendKeys(usernamevalue);
+				//WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
+				//password.sendKeys(passwordvalue);
+				//WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
+				//login.click();
+				//WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
+				//managenews.click();
+				//WebElement newbutton= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-danger']"));
+				//newbutton.click();
+				//WebElement newsarea= driver.findElement(By.xpath("//textarea[@id='news']"));
+				//newsarea.sendKeys("today news");
+				//WebElement save= driver.findElement(By.xpath("//button[@type='submit']"));
+				//save.click();	
 				
 				// Assertion: Verify the news "today news" is displayed on the page.
-				WebElement successAlert = driver.findElement(By.xpath("//div[@class='alert alert-success alert-dismissible']"));
-				Assert.assertTrue(successAlert.isDisplayed());
-				
+				boolean isalertDisplayed = newspage.isAlertDisplayed();
+				Assert.assertTrue(isalertDisplayed);
 	}	
 	
 	@Test (priority=2, description= "search news")
 	public void searchNews()throws IOException {
 		String usernamevalue= ExcelUtility.getStringData(1,0,"Login sheet");
 		String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
-		WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
-		username.sendKeys(usernamevalue);
-		WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordvalue);
-		WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
-		managenews.click();
-		WebElement searchbtn= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-primary']"));
-		searchbtn.click();
-		WebElement searcharea= driver.findElement(By.xpath("//input[@class='form-control']"));
-		searcharea.sendKeys("today news");
-		WebElement search= driver.findElement(By.xpath("//button[@type='submit']"));
-		search.click();
+		
+		LoginPage loginpage = new LoginPage(driver);
+		loginpage.enterusername(usernamevalue);
+		loginpage.enterpassword(passwordvalue);
+		loginpage.signin();
+		NewsPage newspage= new NewsPage(driver);
+		newspage.manage();
+		newspage.searchbtnmethod();
+		newspage.searchareamethod();
+		newspage.searchmethod();
+				
+		
+		
+		
+		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
+		//username.sendKeys(usernamevalue);
+		//WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
+		//password.sendKeys(passwordvalue);
+		//WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
+		//login.click();
+		//WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
+		//managenews.click();
+		//WebElement searchbtn= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-primary']"));
+		//searchbtn.click();
+		//WebElement searcharea= driver.findElement(By.xpath("//input[@class='form-control']"));
+		//searcharea.sendKeys("today news");
+		//WebElement search= driver.findElement(By.xpath("//button[@type='submit']"));
+		//search.click();
 		
 		//assertion		
-		WebElement searchedNews = driver.findElement(By.xpath("//td[contains(text(),'today news')]"));
-		Assert.assertTrue(searchedNews.isDisplayed());
+		String actual = driver.getCurrentUrl();
+		String expected = "https://groceryapp.uniqassosiates.com/admin/news/index";
+		Assert.assertEquals(actual, expected);
 				
 	}
 	
@@ -70,42 +99,63 @@ public class NewsTest extends TestNGBase {
 	public void home() throws IOException {
 		String usernamevalue= ExcelUtility.getStringData(1,0,"Login sheet");
 		String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
-		WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
-		username.sendKeys(usernamevalue);
-		WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordvalue);
-		WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
-		managenews.click();		 
-	    WebElement homebtn= driver.findElement(By.xpath("//a[text()='Home']"));
-		homebtn.click();
 		
-		WebElement adminElement = driver.findElement(By.xpath("//a[@class='d-block']")); 
-		Assert.assertTrue(adminElement.isDisplayed()); // Verify that "Admin" is visible on the page
+		LoginPage loginpage = new LoginPage(driver);
+		loginpage.enterusername(usernamevalue);
+		loginpage.enterpassword(passwordvalue);
+		loginpage.signin();
+		NewsPage newspage= new NewsPage(driver);
+		newspage.manage();
+		newspage.homebtnmethod();
+		
+		
+		
+		
+		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
+		//username.sendKeys(usernamevalue);
+		//WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
+		//password.sendKeys(passwordvalue);
+		//WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
+		//login.click();
+		//WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
+		//managenews.click();		 
+	    //WebElement homebtn= driver.findElement(By.xpath("//a[text()='Home']"));
+		//homebtn.click();
+		
+		String actual = driver.getCurrentUrl();
+		String expected = "https://groceryapp.uniqassosiates.com/admin/home";
+		Assert.assertEquals(actual, expected);
 	}
 	
 	@Test(priority=4, description="back to reset")
 	
 	public void reset() throws IOException {
-		String usernamevalue= ExcelUtility.getStringData(1,0,"Login sheet");
-		String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
-		WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
-		username.sendKeys(usernamevalue);
-		WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordvalue);
-		WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
-		managenews.click();
-		WebElement resetbtn= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-warning']"));
-		resetbtn.click();
+		String usernamevalue= ExcelUtility.getStringData(1,0,Constant.SHEETNAME);
+		String passwordvalue= ExcelUtility.getStringData(1, 1, Constant.SHEETNAME);
 		
-		// Locate the search input box
-		WebElement searchInput = driver.findElement(By.xpath("//input[@class='form-control']"));
-
-		// Assertion: Verify that the search box is empty after clicking Reset
-		Assert.assertEquals(searchInput.getAttribute("value"), "", "Search box is not cleared after reset");
+		LoginPage loginpage = new LoginPage(driver);
+		loginpage.enterusername(usernamevalue);
+		loginpage.enterpassword(passwordvalue);
+		loginpage.signin();
+		NewsPage newspage= new NewsPage(driver);
+		newspage.manage();
+		newspage.resetbtnmethod();
+		
+		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
+		//username.sendKeys(usernamevalue);
+		//WebElement password= driver.findElement(By.xpath("//input[@name='password']"));
+		//password.sendKeyss(passwordvalue);
+		//WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
+		//login.click();
+		//WebElement managenews= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news' and @class='small-box-footer']"));
+		//managenews.click();
+		//WebElement resetbtn= driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-warning']"));
+		//resetbtn.click();
+		
+		String actual = driver.getCurrentUrl();
+		String expected = "https://groceryapp.uniqassosiates.com/admin/home";
+		Assert.assertEquals(actual, expected);
+		
 		
 
 		

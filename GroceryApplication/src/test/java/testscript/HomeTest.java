@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import base.TestNGBase;
 import constants.Constant;
+import constants.Messages;
 import pages.HomePage;
 import pages.LoginPage;
 import utilities.ExcelUtility;
@@ -33,7 +34,7 @@ public class HomeTest extends TestNGBase {
 		
 		String current = driver.getCurrentUrl();
 	    String expected = "https://groceryapp.uniqassosiates.com/admin/login";
-	    Assert.assertEquals(current, expected);
+	    Assert.assertEquals(current, expected, Messages.HOMEALERT_ASSERT);
 	        
 	     
 	     

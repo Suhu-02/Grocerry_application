@@ -9,13 +9,14 @@ import org.testng.annotations.Test;
 
 import base.TestNGBase;
 import constants.Constant;
+import constants.Messages;
 import pages.LoginPage;
 import pages.NewsPage;
 import utilities.ExcelUtility;
 
 public class NewsTest extends TestNGBase {
 	
-	@Test(priority=1 ,description= "adding news in manage news")
+	@Test(priority=1 ,description= "adding news in manage news", groups= {"smoke"})
 	
 	public void addnews() throws IOException{
 		
@@ -154,9 +155,7 @@ public class NewsTest extends TestNGBase {
 		
 		String actual = driver.getCurrentUrl();
 		String expected = "https://groceryapp.uniqassosiates.com/admin/home";
-		Assert.assertEquals(actual, expected);
-		
-		
+		Assert.assertEquals(actual, expected, Messages.NEWSALERT_ASSERT);
 
 		
 		

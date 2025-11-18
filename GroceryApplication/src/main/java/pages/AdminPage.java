@@ -1,5 +1,7 @@
 package pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,14 +10,17 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import constants.Constant;
+import utilities.WaitUtility;
 
 public class AdminPage {
 	
 	public WebDriver driver;
+	WaitUtility waitutility = new WaitUtility();
 	
 	public AdminPage(WebDriver driver) {
 		this.driver=driver;
 		PageFactory.initElements(driver, this); //pagefactory : design to avoid repetition
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //implicit wait
 	}
 	
 	@FindBy(xpath="//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']") WebElement adminuserbtn;
@@ -28,6 +33,7 @@ public class AdminPage {
 		
 	public void clickinfo() {
 		//WebElement clicknewbutton = driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-danger']"));
+		 waitutility.waitUntilClickable(driver, clicknewbutton);
 		clicknewbutton.click();
 		
 	}

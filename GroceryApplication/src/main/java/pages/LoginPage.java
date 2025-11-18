@@ -1,16 +1,23 @@
 package pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import utilities.WaitUtility;
+
 public class LoginPage {
 	public WebDriver driver; //webdriver instance	
+	WaitUtility waitutility = new WaitUtility();
+	
 	public LoginPage(WebDriver driver) {
 		this.driver= driver;
 		PageFactory.initElements(driver, this); //pagefactory : design to avoid repetition, to Initialize page factory
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //implicit wait
 			
 }
 	//implemention PF
@@ -31,7 +38,8 @@ public void enterpassword(String passwordvalue) {
 
  public void signin() {
 	 
-	 WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
+	// WebElement login= driver.findElement(By.xpath("//button[@type='submit']"));
+	 waitutility.waitUntilClickable(driver, login);
 		login.click();
  }
  

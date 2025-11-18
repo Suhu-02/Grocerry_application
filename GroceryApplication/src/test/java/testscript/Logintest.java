@@ -8,17 +8,19 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.TestNGBase;
 import constants.Constant;
+import constants.Messages;
 import pages.LoginPage;
 import utilities.ExcelUtility;
 
 public class Logintest extends TestNGBase{
+	//we write this in order to understand this test case is flaky
 	
-	@Test(priority =1, description= "to verify login with valid credentials") 
+	@Test(priority =1, description= "to verify login with valid credentials", retryAnalyzer =retry.Retry.class) 
 	
 	public void verifyLoginwithValidCredentials() throws IOException {
 		
-		//reading data from excel file		
-		String usernamevalue= ExcelUtility.getStringData(1,0,Constant.SHEETNAME);
+		////data driver approach: reading data from excel file		
+		String usernamevalue= ExcelUtility.getStringData(1,0,Constant.SHEETNAME);  
 		String passwordvalue= ExcelUtility.getStringData(1, 1, Constant.SHEETNAME);
 		
 		LoginPage loginpage = new LoginPage(driver);
@@ -38,7 +40,8 @@ public class Logintest extends TestNGBase{
 		//assertion
 		String actual = driver.getCurrentUrl();
 		String expected= "https://groceryapp.uniqassosiates.com/admin";
-		Assert.assertEquals(actual, expected); //softassert. in case softassert is used
+		Assert.assertEquals(actual, expected, Messages.VALID_CREDENTIAL_ASSERT); 
+		//softassert. in case softassert is used
 		//if assert fails, an error "assertion" failed will be returned
 		
 		
@@ -65,7 +68,7 @@ public class Logintest extends TestNGBase{
 		 // Assert that the URL stays the same, meaning login failed and we are still on the login page
 		String actualUrl = driver.getCurrentUrl();
 	    String expectedUrl = "https://groceryapp.uniqassosiates.com/admin/login"; // Assuming this is the login page URL
-	    Assert.assertEquals(actualUrl, expectedUrl);
+	    Assert.assertEquals(actualUrl, expectedUrl, Messages.INVALID_CREDENTIAL_ASSERT);
 	}
 	
 	@Test(priority=3, description= "to verify invalidusername and valid pw")
@@ -89,7 +92,7 @@ public class Logintest extends TestNGBase{
 		
 		String actualUrl = driver.getCurrentUrl();
 	    String expectedUrl = "https://groceryapp.uniqassosiates.com/admin/login"; // Assuming this is the login page URL
-	    Assert.assertEquals(actualUrl, expectedUrl);
+	    Assert.assertEquals(actualUrl, expectedUrl, Messages.INVALID_CREDENTIAL_ASSERT);
 		
 		
 	}
@@ -115,7 +118,7 @@ public class Logintest extends TestNGBase{
 		
 		String actualUrl = driver.getCurrentUrl();
 	    String expectedUrl = "https://groceryapp.uniqassosiates.com/admin/login"; // Assuming this is the login page URL
-	    Assert.assertEquals(actualUrl, expectedUrl);
+	    Assert.assertEquals(actualUrl, expectedUrl,Messages.INVALID_CREDENTIAL_ASSERT);
 		
 	}
 	

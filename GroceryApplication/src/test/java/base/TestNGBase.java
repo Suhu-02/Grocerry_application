@@ -1,20 +1,28 @@
 package base;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import com.beust.jcommander.Parameters;
+
+import utilities.ScreenshotUtility;
 
 public class TestNGBase {	
 	
 		
 		public WebDriver driver; //its an interface
 		
-		@BeforeMethod 
+		//@Parameters("browser")
+		@BeforeMethod(alwaysRun=true)
+		
 		
 		public void initializeBrowser() {
 			//driver= new ChromeDriver(); //chrome driver is a class which implements web browser
@@ -33,9 +41,22 @@ public class TestNGBase {
 		@AfterMethod
 		
 		public void closeBrowser() {
-			//driver.close();
+			//driver.close(); //tab
 			//System.out.println("closed");
-			//driver.quit();
+			//driver.quit(); //window
+		}
+		
+		@AfterMethod(alwaysRun = true) //this method must run in every scenario
+		public void driverQuit(ITestResult iTestResult) throws IOException
+		{
+			//iTestResult a predefined interface having all info regarding our test case / test data
+			if(iTestResult.getStatus()==ITestResult.FAILURE) 
+			{
+				ScreenshotUtility screenShot=new ScreenshotUtility();
+				screenShot.getScreenshot(driver, iTestResult.getName()); //getname: returns name of test method
+			}
+			driver.quit();
+
 		}
 		
 	

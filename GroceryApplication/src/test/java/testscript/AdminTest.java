@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.TestNGBase;
 import constants.Constant;
+import constants.Messages;
 import pages.AdminPage;
 import pages.LoginPage;
 import utilities.ExcelUtility;
@@ -42,7 +43,7 @@ public class AdminTest extends  TestNGBase {
 		adminpage.dropdown();
 		adminpage.save();
 		boolean isAlertDisplayed = adminpage.isAlertDisplayed();
-		Assert.assertTrue(isAlertDisplayed);
+		Assert.assertTrue(isAlertDisplayed, Messages.ALERT_ASSERT);
 		
 			
 		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));

@@ -11,11 +11,14 @@ import base.TestNGBase;
 import constants.Constant;
 import constants.Messages;
 import pages.AdminPage;
+import pages.HomePage;
 import pages.LoginPage;
 import utilities.ExcelUtility;
 import utilities.FakerUtility;
 
-public class AdminTest extends  TestNGBase {
+public class AdminTest extends  TestNGBase{
+public HomePage home;
+public AdminPage adminpage;
 	
 	@Test (priority=1, description="to create an admin")
 	
@@ -25,23 +28,28 @@ public class AdminTest extends  TestNGBase {
 		String passwordvalue= ExcelUtility.getStringData(1, 1, Constant.SHEETNAME);
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
+		//loginpage.enterusername(usernamevalue);
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+		//loginpage.enterpassword(passwordvalue);
+		home= loginpage.signin();
+		adminpage= home.admininfo();
 		
-		AdminPage adminpage = new AdminPage(driver);
-		adminpage.admininfo();
-		adminpage.clickinfo();
+		
+		//AdminPage adminpage = new AdminPage(driver);
+		//adminpage.admininfo();
+		//adminpage.clickinfo();
+		
 		
 		//create random user name and password
 		FakerUtility faker = new FakerUtility();
 		String randomusername= faker.createRandomUserName();
 		String randompassword= faker.createRandomPassword();
+		adminpage.clickinfo().username(randomusername).password(randompassword).dropdown().save();
 		
-		adminpage.username(randomusername);
-		adminpage.password(randompassword);
-		adminpage.dropdown();
-		adminpage.save();
+		//adminpage.username(randomusername);
+		//adminpage.password(randompassword);
+		//adminpage.dropdown();
+		//adminpage.save();
 		boolean isAlertDisplayed = adminpage.isAlertDisplayed();
 		Assert.assertTrue(isAlertDisplayed, Messages.ALERT_ASSERT);
 		

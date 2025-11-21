@@ -10,12 +10,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import constants.Constant;
+import utilities.PageUtility;
 import utilities.WaitUtility;
 
 public class AdminPage {
 	
 	public WebDriver driver;
 	WaitUtility waitutility = new WaitUtility();
+	PageUtility pageutility = new PageUtility();
 	
 	public AdminPage(WebDriver driver) {
 		this.driver=driver;
@@ -23,45 +25,64 @@ public class AdminPage {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //implicit wait
 	}
 	
-	@FindBy(xpath="//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']") WebElement adminuserbtn;
-	public void admininfo() {
+	//@FindBy(xpath="//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']") WebElement adminuserbtn;
+	//public void admininfo() {
 		//WebElement adminuserbtn= driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']"));
-		adminuserbtn.click();
+		//adminuserbtn.click();
+	//	pageutility.clickOnElement(adminuserbtn);
 		
-	}
+	//} these code moved to homepage
 	@FindBy(xpath="//a[@class='btn btn-rounded btn-danger']") WebElement clicknewbutton;
 		
-	public void clickinfo() {
+	//public void clickinfo() 
+	public AdminPage clickinfo(){
 		//WebElement clicknewbutton = driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-danger']"));
 		 waitutility.waitUntilClickable(driver, clicknewbutton);
-		clicknewbutton.click();
+		//clicknewbutton.click();
+		 pageutility.clickOnElement(clicknewbutton);
+		 return this;
+		 
 		
 	}
 	@FindBy(xpath="//input[@type= 'text' and @id='username']") WebElement newusername;
-	public void username(String randomusername) {
+	//public void username(String randomusername)
+	public AdminPage username(String randomusername){
 		//WebElement newusername= driver.findElement(By.xpath("//input[@type= 'text' and @id='username']"));
-		newusername.sendKeys(randomusername);		
+		//newusername.sendKeys(randomusername);	
+		pageutility.sendDataToElement(newusername ,randomusername);
+		return this;
 		
 	}
 	
 	@FindBy(xpath="//input[@type= 'password' and @id='password']") WebElement newpassword;
-	public void password(String randompassword) {
+	//public void password(String randompassword)
+	public AdminPage password(String randompassword){
 		//WebElement newpassword= driver.findElement(By.xpath("//input[@type= 'password' and @id='password']"));
-		newpassword.sendKeys(randompassword);		
+		//newpassword.sendKeys(randompassword);
+		pageutility.sendDataToElement(newpassword, randompassword);
+		return this;
 		
 	}
 	
 	@FindBy(xpath="//select[@class= 'form-control' and @name='user_type']") WebElement usertype;
-	public void dropdown() {
+	//public void dropdown()
+	public AdminPage dropdown(){
 		//WebElement usertype= driver.findElement(By.xpath("//select[@class= 'form-control' and @name='user_type']"));
-		Select select= new Select(usertype);
-		select.selectByVisibleText(Constant.ADMINTYPE);	
+		//Select select= new Select(usertype);
+		//select.selectByVisibleText(Constant.ADMINTYPE);	
+		pageutility.selectData(usertype);
+		return this;
 		
 	}
 	@FindBy(xpath="//button[@type= 'submit' and @name='Create']") WebElement savebtn;
-	public void save() {
+	//public void save()
+	public AdminPage save(){
 		//WebElement savebtn= driver.findElement(By.xpath("//button[@type= 'submit' and @name='Create']"));
-		savebtn.click();	
+		//savebtn.click();	
+		pageutility.clickOnElement(savebtn);
+		return this;
+		
+		
 		
 	}
 	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']") WebElement successAlert;

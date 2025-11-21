@@ -10,11 +10,15 @@ import org.testng.annotations.Test;
 import base.TestNGBase;
 import constants.Constant;
 import constants.Messages;
+import pages.HomePage;
 import pages.LoginPage;
 import pages.NewsPage;
 import utilities.ExcelUtility;
 
 public class NewsTest extends TestNGBase {
+	public LoginPage loginPage;
+    public NewsPage newspage;
+    public HomePage home;
 	
 	@Test(priority=1 ,description= "adding news in manage news", groups= {"smoke"})
 	
@@ -25,14 +29,24 @@ public class NewsTest extends TestNGBase {
 				String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
 				
 				LoginPage loginpage = new LoginPage(driver);
-				loginpage.enterusername(usernamevalue);
-				loginpage.enterpassword(passwordvalue);
-				loginpage.signin();
-				NewsPage newspage= new NewsPage(driver);
-				newspage.manage();
-				newspage.newbuttonmethod();
-				newspage.newsareamethod();
-				newspage.savemethod();
+				loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+				home= loginpage.signin();                
+                        
+                                   
+                       
+                        
+				//loginpage.enterusername(usernamevalue);
+				//loginpage.enterpassword(passwordvalue);
+				//loginpage.signin();
+				//NewsPage newspage= new NewsPage(driver);
+				newspage=home.manage();
+				newspage.newbuttonmethod().newsareamethod().savemethod();        
+		          	           
+		        
+				//newspage.manage();
+				//newspage.newbuttonmethod();
+				//newspage.newsareamethod();
+				//newspage.savemethod();
 								
 				
 				//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
@@ -61,14 +75,18 @@ public class NewsTest extends TestNGBase {
 		String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
-		NewsPage newspage= new NewsPage(driver);
-		newspage.manage();
-		newspage.searchbtnmethod();
-		newspage.searchareamethod();
-		newspage.searchmethod();
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+		home= loginpage.signin();
+		//loginpage.enterusername(usernamevalue);
+		//loginpage.enterpassword(passwordvalue);
+		//loginpage.signin();
+		//NewsPage newspage= new NewsPage(driver);
+		newspage=home.manage();
+		newspage.searchbtnmethod().searchareamethod().searchmethod();
+		//newspage.manage();
+		//newspage.searchbtnmethod();
+		//newspage.searchareamethod();
+		//newspage.searchmethod();
 				
 		
 		
@@ -102,12 +120,16 @@ public class NewsTest extends TestNGBase {
 		String passwordvalue= ExcelUtility.getStringData(1, 1, "Login sheet");
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
-		NewsPage newspage= new NewsPage(driver);
-		newspage.manage();
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+		home= loginpage.signin();
+		//loginpage.enterusername(usernamevalue);
+		//loginpage.enterpassword(passwordvalue);
+		//loginpage.signin();
+		//NewsPage newspage= new NewsPage(driver);
+		newspage=home.manage();
 		newspage.homebtnmethod();
+		//newspage.manage();
+		//newspage.homebtnmethod();
 		
 		
 		
@@ -135,12 +157,16 @@ public class NewsTest extends TestNGBase {
 		String passwordvalue= ExcelUtility.getStringData(1, 1, Constant.SHEETNAME);
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
-		NewsPage newspage= new NewsPage(driver);
-		newspage.manage();
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+		home= loginpage.signin();
+		//loginpage.enterusername(usernamevalue);
+		//loginpage.enterpassword(passwordvalue);
+		//loginpage.signin();
+		//NewsPage newspage= new NewsPage(driver);
+		newspage=home.manage();
 		newspage.resetbtnmethod();
+		//newspage.manage();
+		//newspage.resetbtnmethod();
 		
 		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
 		//username.sendKeys(usernamevalue);

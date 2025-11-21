@@ -9,12 +9,14 @@ import org.testng.annotations.Test;
 import base.TestNGBase;
 import constants.Constant;
 import constants.Messages;
+import pages.HomePage;
 import pages.LoginPage;
 import utilities.ExcelUtility;
 
 public class Logintest extends TestNGBase{
 	//we write this in order to understand this test case is flaky
 	
+	public HomePage home;
 	@Test(priority =1, description= "to verify login with valid credentials", retryAnalyzer =retry.Retry.class) 
 	
 	public void verifyLoginwithValidCredentials() throws IOException {
@@ -24,9 +26,12 @@ public class Logintest extends TestNGBase{
 		String passwordvalue= ExcelUtility.getStringData(1, 1, Constant.SHEETNAME);
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
+		//loginpage.enterusername(usernamevalue);
+		//for chaining purpose
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+		//loginpage.enterpassword(passwordvalue);
+		//loginpage.signin(); changed this chaining purpose
+		home = loginpage.signin();
 		
 		
 		
@@ -54,9 +59,10 @@ public class Logintest extends TestNGBase{
 		String passwordvalue= ExcelUtility.getStringData(2, 1, Constant.SHEETNAME);
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
+		//loginpage.enterusername(usernamevalue);
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue).signin();
+		//loginpage.enterpassword(passwordvalue); //chaining
+		//loginpage.signin(); //chaining
 		
 		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
 		//username.sendKeys(usernamevalue);

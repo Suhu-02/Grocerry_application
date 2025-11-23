@@ -88,7 +88,8 @@ public class AdminPage {
 	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']") WebElement successAlert;
 	public boolean isAlertDisplayed() {
 		//WebElement successAlert = driver.findElement(By.xpath("//div[@class='alert alert-success alert-dismissible']"));
-		return successAlert.isDisplayed();	
+		//return successAlert.isDisplayed();	
+		 return pageutility.alertDisplay(successAlert);
 		
 	}
 	

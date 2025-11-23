@@ -9,12 +9,13 @@ import org.testng.annotations.Test;
 import base.TestNGBase;
 import constants.Constant;
 import constants.Messages;
+import pages.AdminPage;
 import pages.HomePage;
 import pages.LoginPage;
 import utilities.ExcelUtility;
 
 public class HomeTest extends TestNGBase {
-	public LoginPage loginPage; 
+	public AdminPage adminpage;
     public HomePage home;
 	
     
@@ -27,8 +28,10 @@ public class HomeTest extends TestNGBase {
 		String passwordvalue= ExcelUtility.getStringData(1, 1, Constant.SHEETNAME);
 		LoginPage loginpage = new LoginPage(driver);
 		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue);
+		HomePage home = new HomePage(driver);
 		home= loginpage.signin();
-		home.adminButton();
+		adminpage = home.adminButton();
+		
 		loginpage= home.logOut();
                 
 		//loginpage.enterusername(usernamevalue);
@@ -43,7 +46,7 @@ public class HomeTest extends TestNGBase {
 	    String expected = "https://groceryapp.uniqassosiates.com/admin/login";
 	    Assert.assertEquals(current, expected, Messages.HOMEALERT_ASSERT);
 	        
-	     
+	   
 	     
 		
 	}

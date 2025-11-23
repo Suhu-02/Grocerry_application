@@ -37,5 +37,8 @@ public class PageUtility {
 		Select select= new Select(element);
 		select.selectByVisibleText(Constant.ADMINTYPE);	
 	}
+	public boolean alertDisplay(WebElement element) {
+		return element.isDisplayed();
+	}
 
 }

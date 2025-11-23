@@ -45,6 +45,8 @@ public LoginPage enterpassword(String passwordvalue){
 	pageutility.sendDataToElement(password, passwordvalue);
 	return this;
 	
+	
+	
 }
 @FindBy(xpath= "//button[@type='submit']") WebElement login;
 
@@ -56,14 +58,15 @@ public HomePage signin(){
 	 waitutility.waitUntilClickable(driver, login);
 		//login.click();
 	 pageutility.clickOnElement(login);
-	 return new HomePage(driver);
+	 return new HomePage(driver);//since homepage is a parametereised constructor, object initialisation
+}
+//Page Factory: Design pattern to avoid repetition
+//all others within loginpage, signin navigatesto homepage
+//chaining of classes
+}
 	 
 	
- }
- 
- 
 
-}
 
 
 

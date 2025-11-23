@@ -26,12 +26,12 @@ public class HomePage {
 	
 	@FindBy(xpath="//a[@data-toggle='dropdown']") WebElement adminDropdown;
 //public void adminButton() 
-	public HomePage adminButton(){
+	public AdminPage adminButton(){
 	//WebElement adminDropdown = driver.findElement(By.xpath("//a[@data-toggle='dropdown']"));
 	waitutility.waitUntilClickable(driver, adminDropdown);
     //adminDropdown.click();
 	pageutility.clickOnElement(adminDropdown);
-	return this;
+	return new AdminPage(driver);
 	
 }
 

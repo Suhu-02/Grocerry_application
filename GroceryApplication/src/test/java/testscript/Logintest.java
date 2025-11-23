@@ -16,7 +16,8 @@ import utilities.ExcelUtility;
 public class Logintest extends TestNGBase{
 	//we write this in order to understand this test case is flaky
 	
-	public HomePage home;
+	public HomePage home; //object initialisation
+	
 	@Test(priority =1, description= "to verify login with valid credentials", retryAnalyzer =retry.Retry.class) 
 	
 	public void verifyLoginwithValidCredentials() throws IOException {
@@ -61,6 +62,8 @@ public class Logintest extends TestNGBase{
 		LoginPage loginpage = new LoginPage(driver);
 		//loginpage.enterusername(usernamevalue);
 		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue).signin();
+		//since everything is in same page
+		
 		//loginpage.enterpassword(passwordvalue); //chaining
 		//loginpage.signin(); //chaining
 		
@@ -84,9 +87,7 @@ public class Logintest extends TestNGBase{
 		String passwordvalue= ExcelUtility.getStringData(3, 1, Constant.SHEETNAME);
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue).signin();
 		
 		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
 		//username.sendKeys(usernamevalue);
@@ -111,9 +112,7 @@ public class Logintest extends TestNGBase{
 		String passwordvalue= ExcelUtility.getStringData(4, 1, Constant.SHEETNAME); 
 		
 		LoginPage loginpage = new LoginPage(driver);
-		loginpage.enterusername(usernamevalue);
-		loginpage.enterpassword(passwordvalue);
-		loginpage.signin();
+		loginpage.enterusername(usernamevalue).enterpassword(passwordvalue).signin();
 		
 		//WebElement username= driver.findElement(By.xpath("//input[@name='username']"));
 		//username.sendKeys(usernamevalue);
@@ -141,7 +140,7 @@ public class Logintest extends TestNGBase{
 
 	
 		
-		
+	
 	
 	
 	

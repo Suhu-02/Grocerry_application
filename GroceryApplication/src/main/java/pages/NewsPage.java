@@ -89,11 +89,11 @@ public class NewsPage {
 	
 	@FindBy(xpath="//a[text()='Home']") WebElement homebtn;
 	//public void homebtnmethod() 
-	public NewsPage homebtnmethod(){
+	public HomePage homebtnmethod(){
 		//WebElement homebtn= driver.findElement(By.xpath("//a[text()='Home']"));
 		//homebtn.click();
 		pageutility.clickOnElement(homebtn);
-		return this;
+		return  new HomePage(driver);
 	}
 	
 	@FindBy(xpath="//a[@class='btn btn-rounded btn-warning']") WebElement resetbtn;
@@ -109,9 +109,12 @@ public class NewsPage {
 	@FindBy(xpath="//div[@class='alert alert-success alert-dismissible']") WebElement alert;
 	public boolean isAlertDisplayed() {
 		//WebElement alert= driver.findElement(By.xpath("//div[@class='alert alert-success alert-dismissible']"));
-		return alert.isDisplayed();
+		//return alert.isDisplayed();
+		return pageutility.alertDisplay(alert);
 	}
 	
 	
+		
+	}
 	
-}
+
